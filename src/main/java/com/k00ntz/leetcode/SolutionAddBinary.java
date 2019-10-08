@@ -23,20 +23,11 @@ public class SolutionAddBinary {
         int bLength = b.length();
         int maxLength = Math.max(aLength, bLength);
         for (int i = 1; i <= maxLength; i++) {
-            int aChar;
-            if (aLength - i < 0) aChar = 0;
-            else aChar = a.charAt(aLength - i) - '0';
-            int bChar;
-            if (bLength - i < 0) bChar = 0;
-            else bChar = b.charAt(bLength - i) - '0';
+            int aChar = (aLength - i < 0) ? 0 : a.charAt(aLength - i) - '0';
+            int bChar = (bLength - i < 0) ? 0 : b.charAt(bLength - i) - '0';
             int newBit = aChar + bChar + carry;
-            if (newBit < 2) {
-                sb.append(newBit);
-                carry = 0;
-            } else {
-                sb.append(newBit - 2);
-                carry = 1;
-            }
+            sb.append(newBit % 2);
+            carry = newBit / 2;
         }
         if (carry == 1) {
             sb.append(1);
