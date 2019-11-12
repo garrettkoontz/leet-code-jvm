@@ -9,7 +9,24 @@ import static java.lang.Math.sqrt;
 
 public class Primes {
 
+    public static List<Integer> primeFactors(long l) {
+        List<Integer> primeFactors = new ArrayList<>();
+        List<Integer> primes = sieveOfEratosthenes((int) Math.ceil(Math.sqrt(l)));
+        outer:
+        while (l != 1) {
 
+            for (Integer p : primes) {
+                if (l % p == 0) {
+                    primeFactors.add(p);
+                    l /= p;
+                    continue outer;
+                }
+            }
+            primeFactors.add((int) l);
+            l /= l;
+        }
+        return primeFactors;
+    }
 
     public static List<Integer> sieveOfEratosthenes(int n) {
         boolean[] prime = new boolean[n + 1];
