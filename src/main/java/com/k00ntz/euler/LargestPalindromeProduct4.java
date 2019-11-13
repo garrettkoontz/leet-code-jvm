@@ -1,7 +1,5 @@
 package com.k00ntz.euler;
 
-import java.util.List;
-
 /**
  * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
  * <p>
@@ -15,7 +13,8 @@ public class LargestPalindromeProduct4 {
             for (int j = max; j >= min; j--) {
                 int t = i * j;
                 if (t > currentMaxPalindrome) {
-                    if (isPalindrome(t)) currentMaxPalindrome = t;
+                    if (isPalindrome(t))
+                        currentMaxPalindrome = t;
                 }
             }
         }
@@ -25,10 +24,10 @@ public class LargestPalindromeProduct4 {
     static boolean isPalindrome(int i) {
         double log = Math.floor(Math.log10(i));
         int highIndex = (int) Math.pow(10, log);
-        int lowIndex = 10;
+        int lowIndex = 1;
         while (highIndex >= lowIndex) {
             int modHigh = (i % (highIndex * 10)) / highIndex;
-            int modLow = (i / (lowIndex / 10)) % lowIndex;
+            int modLow = (i / lowIndex) % 10;
             if (modHigh != modLow) return false;
             highIndex /= 10;
             lowIndex *= 10;
