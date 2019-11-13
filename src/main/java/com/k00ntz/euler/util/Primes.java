@@ -75,11 +75,17 @@ public class Primes {
     }
 
     public static List<Integer> segmentedSieve(long n) {
+        return segmentedSieve(n, null);
+    }
+
+    public static List<Integer> segmentedSieve(long n, List<Integer> prime) {
         // Compute all primes smaller than or equal
         // to square root of n using simple sieve
         int limit = (int) (floor(sqrt(n)) + 1);
-        List<Integer> prime = new ArrayList<>();
-        simpleSieve(limit, prime);
+        if (prime == null) {
+            prime = new ArrayList<>();
+            simpleSieve(limit, prime);
+        }
 
         // Divide the range [0..n-1] in different segments
         // We have chosen segment size as sqrt(n).
