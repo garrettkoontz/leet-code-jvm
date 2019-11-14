@@ -59,18 +59,22 @@ public class LargestProductInGrid11 {
 
 
     public static long maxGridProductAt(List<List<Integer>> grid, int x, int y, int size) {
-        long acrossProduct = grid.get(y).size() >= x + size ? 0 :
-                grid.get(y).subList(x, x + size).stream().reduce((a, b) -> a * b).orElse(0);
-        long downProduct = grid.size() >= y + size ? 0 :
-                grid.subList(y, y + size).stream().mapToInt(a -> a.get(x)).reduce((a, b) -> a * b).orElse(0);
-        long diagonalRight = grid.size() >= y + size || grid.get(y).size() >= x + size ? 0 :
-                IntStream.range(0, size).map(s ->
-                        grid.get(y + s).get(x + s)
-                ).reduce((a, b) -> a * b).orElse(0);
-        long diagonalLeft = grid.size() >= y + size || x - size < 0 ? 0 :
-                IntStream.range(0, size).map(s ->
-                        grid.get(y + s).get(x - s)
-                ).reduce((a, b) -> a * b).orElse(0);
+        long acrossProduct = 0;
+        if ((x + size) < grid.get(y).size())
+            acrossProduct = grid.get(y).subList(x, x + size).stream().mapToLong(n -> (long) n).reduce((a, b) -> a * b).orElse(0L);
+        long downProduct = 0;
+        if ((y + size) < grid.size())
+            downProduct = grid.subList(y, y + size).stream().mapToLong(a -> a.get(x)).reduce((a, b) -> a * b).orElse(0);
+        long diagonalRight = 0;
+        if ((y + size) < grid.size() && (x + size) < grid.get(y).size())
+            diagonalRight = IntStream.range(0, size).mapToLong(s ->
+                    grid.get(y + s).get(x + s)
+            ).reduce((a, b) -> a * b).orElse(0);
+        long diagonalLeft = 0;
+        if ((y + size) < grid.size() && (x - size) >= 0)
+            diagonalLeft = IntStream.range(0, size).mapToLong(s ->
+                    grid.get(y + s).get(x - s)
+            ).reduce((a, b) -> a * b).orElse(0);
         return Math.max(acrossProduct, Math.max(downProduct, Math.max(diagonalLeft, diagonalRight)));
     }
 
@@ -85,6 +89,6 @@ public class LargestProductInGrid11 {
     }
 
     public static void main(String[] args) {
-        System.out.println(greatestProductInGrid(grid, 13));
+        System.out.println(greatestProductInGrid(grid, 4));
     }
 }
