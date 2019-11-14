@@ -3,7 +3,10 @@ package com.k00ntz.euler.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
+import static com.k00ntz.euler.util.ListUtil.groupBy;
 import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 
@@ -26,6 +29,10 @@ public class Primes {
             l /= l;
         }
         return primeFactors;
+    }
+
+    public static Map<Integer, List<Integer>> primeFactorsMap(long l) {
+        return groupBy(primeFactors(l), Function.identity());
     }
 
     public static List<Integer> sieveOfEratosthenes(int n) {
