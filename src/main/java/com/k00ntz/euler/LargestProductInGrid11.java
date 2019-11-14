@@ -1,7 +1,8 @@
-package com.k 0ntz.euler;
+package com.k00ntz.euler;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
@@ -31,7 +32,7 @@ import java.util.List;
  *
  * What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
  */
-public class LargestProductInGrid {
+public class LargestProductInGrid11 {
 
     private static List<List<Integer>> grid = Arrays.asList(
           Arrays.asList( 8,  2, 22, 97, 38, 15,  0, 40,  0, 75,  4,  5,  7, 78, 52, 12, 50, 77, 91,  8),
@@ -55,4 +56,29 @@ public class LargestProductInGrid {
           Arrays.asList(20, 73, 35, 29, 78, 31, 90,  1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57,  5, 54),
           Arrays.asList( 1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,  1, 89, 19, 67, 48)
     );
+
+
+    public static long maxGridProductAt(List<List<Integer>> grid, int x, int y, int size) {
+        long acrossProduct = grid.get(y).size() >= x + size ? 0 :
+                grid.get(y).subList(x, x + size).stream().reduce((a, b) -> a * b).orElse(0);
+        long downProduct = grid.size() >= y + size ? 0 :
+                grid.subList(y, y + size).stream().mapToInt(a -> a.get(x)).reduce((a, b) -> a * b).orElse(0);
+        long diagonalRight = grid.size() >= y + size || grid.get(y).size() >= x + size ? 0 :
+                IntStream.range(0, size).map(s ->
+                        grid.get(y + s).get(x + s)
+                ).reduce((a, b) -> a * b).orElse(0);
+        long diagonalLeft = grid.size() >= y + size || x - size < 0 ? 0 :
+                IntStream.range(0, size).map(s ->
+                        grid.get(y + s).get(x - s)
+                ).reduce((a, b) -> a * b).orElse(0);
+        return Math.max(acrossProduct, Math.max(downProduct, Math.max(diagonalLeft, diagonalRight)));
+    }
+
+    public static long greatestProductInGrid(List<List<Integer>> grid, int size) {
+
+    }
+
+    public static void main(String[] args) {
+
+    }
 }
