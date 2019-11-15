@@ -13,7 +13,7 @@ public class Primes {
         int sqrt = (int) Math.ceil(Math.sqrt(l));
         Set<Integer> answer = new HashSet<>();
         for (int i = 1; i <= sqrt; i++) {
-            if (l % i == 1) {
+            if (l % i == 0) {
                 answer.add(i);
                 answer.add(l / i);
             }
