@@ -1,9 +1,6 @@
 package com.k00ntz.euler.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 import static com.k00ntz.euler.util.ListUtil.groupBy;
@@ -11,6 +8,24 @@ import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 
 public class Primes {
+
+    public static Set<Integer> divisors(int l) {
+        int sqrt = (int) Math.ceil(Math.sqrt(l));
+        Set<Integer> answer = new HashSet<>();
+        for (int i = 1; i <= sqrt; i++) {
+            if (l % i == 1) {
+                answer.add(i);
+                answer.add(l / i);
+            }
+        }
+        return answer;
+    }
+
+    public static Set<Integer> properDivisors(int i) {
+        Set<Integer> divisors = divisors(i);
+        divisors.remove(i);
+        return divisors;
+    }
 
     public static List<Integer> primeFactors(long l) {
         List<Integer> primeFactors = new ArrayList<>();
