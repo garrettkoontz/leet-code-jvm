@@ -12,9 +12,9 @@ import java.util.Arrays;
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the
  * even-valued terms.
  */
-public class EvenFibs {
+public class EvenFibs2 {
     public static void main(String[] args) {
-        EvenFibs evenFibs = new EvenFibs();
+        EvenFibs2 evenFibs = new EvenFibs2();
         System.out.println(evenFibs.sumOfEvenFibs(4_000_000)); //4613732
     }
 

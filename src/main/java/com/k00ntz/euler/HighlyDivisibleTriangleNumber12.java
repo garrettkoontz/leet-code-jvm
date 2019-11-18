@@ -25,7 +25,7 @@ import java.util.Map;
  * <p>
  * What is the value of the first triangle number to have over five hundred divisors?
  */
-public class HighlyDivisibleTriangleNumber {
+public class HighlyDivisibleTriangleNumber12 {
 
     public static class TriangleNumberIterator implements Iterator<Long> {
 

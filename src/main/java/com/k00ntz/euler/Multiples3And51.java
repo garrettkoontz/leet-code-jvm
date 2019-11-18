@@ -5,7 +5,7 @@ package com.k00ntz.euler;
  * <p>
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
-public class Multiples3And5 {
+public class Multiples3And51 {
 
     public static void main(String[] args) {
         System.out.println(sumOf3or5Multiples(1000)); //233168

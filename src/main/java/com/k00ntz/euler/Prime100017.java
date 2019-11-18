@@ -9,7 +9,7 @@ import java.util.List;
  * <p>
  * What is the 10 001st prime number?
  */
-public class Prime100016 {
+public class Prime100017 {
 
     public static int findNthPrime(int n) {
         List<Integer> primes = Primes.segmentedSieve(n);
