@@ -39,7 +39,8 @@ public class RunAllEuler {
                 "com.k00ntz.euler.CoinSums31",
                 "com.k00ntz.euler.PandigitalProducts32",
                 "com.k00ntz.euler.DigitFactorials34",
-                "com.k00ntz.euler.CircularPrimes35"
+                "com.k00ntz.euler.CircularPrimes35",
+                "com.k00ntz.euler.DoubleBasePalindromes36"
         );
         for (String s : classes) {
             Class<?> claz = Class.forName(s);
