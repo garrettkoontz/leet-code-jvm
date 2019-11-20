@@ -28,6 +28,18 @@ public class NumberUtil {
         return digits;
     }
 
+    public static Pair<Integer, Integer> reduce(Pair<Integer, Integer> pair) {
+        int gcd = findGCD(pair._1, pair._2);
+        return new Pair<>(pair._1 / gcd, pair._2 / gcd);
+    }
+
+    private static int findGCD(int number1, int number2) {
+        if (number2 == 0) {
+            return number1;
+        }
+        return findGCD(number2, number1 % number2);
+    }
+
     public static boolean isPalindrome(int i) {
         return isPalindrome("" + i);
     }

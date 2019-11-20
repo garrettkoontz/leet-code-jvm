@@ -1,6 +1,7 @@
 package com.k00ntz.euler;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,16 +39,19 @@ public class RunAllEuler {
                 "com.k00ntz.euler.DigitFifthPowers30",
                 "com.k00ntz.euler.CoinSums31",
                 "com.k00ntz.euler.PandigitalProducts32",
+                "com.k00ntz.euler.DigitCancellingFractions33",
                 "com.k00ntz.euler.DigitFactorials34",
                 "com.k00ntz.euler.CircularPrimes35",
                 "com.k00ntz.euler.DoubleBasePalindromes36"
         );
+        List<String> runTimes = new ArrayList<>();
         for (String s : classes) {
             Class<?> claz = Class.forName(s);
             long startTime = System.currentTimeMillis();
             claz.getMethod("main", String[].class).invoke(null, (Object) null);
-            System.out.println("Ran " + s + " in " + (System.currentTimeMillis() - startTime) + "ms");
+            runTimes.add("Ran " + s + " in " + (System.currentTimeMillis() - startTime) + "ms");
         }
+        runTimes.forEach(System.out::println);
     }
 
 }
