@@ -24,7 +24,7 @@ public class DigitFactorials34 {
 
     public static List<Long> digitFactorials() {
         List<Long> digitFactorials = new ArrayList<>();
-        for (int i = 10; i < 10000000; i++) {
+        for (int i = 10; i < 100000; i++) {
             if (i == digitFactorialSum(i)) digitFactorials.add((long) i);
         }
         return digitFactorials;

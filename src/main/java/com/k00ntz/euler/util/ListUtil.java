@@ -36,4 +36,16 @@ public class ListUtil {
         }
         return returnSet;
     }
+
+    public static <T> List<T> plus(List<T> list, T t) {
+        List<T> outputList = new ArrayList<>(list);
+        outputList.add(t);
+        return outputList;
+    }
+
+    public static <T> List<T> plus(List<T> list, List<T> list2) {
+        List<T> outputList = new ArrayList<>(list);
+        outputList.addAll(list2);
+        return outputList;
+    }
 }

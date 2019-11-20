@@ -37,7 +37,10 @@ public class RunAllEuler {
                 "com.k00ntz.euler.DistinctPowers29",
                 "com.k00ntz.euler.DigitFifthPowers30",
                 "com.k00ntz.euler.CoinSums31",
-                "com.k00ntz.euler.PandigitalProducts32");
+                "com.k00ntz.euler.PandigitalProducts32",
+                "com.k00ntz.euler.DigitFactorials34",
+                "com.k00ntz.euler.CircularPrimes35"
+        );
         for (String s : classes) {
             Class<?> claz = Class.forName(s);
             long startTime = System.currentTimeMillis();
