@@ -18,7 +18,7 @@ import java.util.Set;
 public class TruncatablePrimes37 {
 
 
-    private static List<Integer> primesList = Primes.segmentedSieve(10);
+    private static List<Integer> primesList = Primes.segmentedSieve(1000000);
     private static Set<Integer> primesSet = new HashSet<>(primesList);
 
     public static boolean isTruncatablePrime(long i) {
@@ -40,28 +40,19 @@ public class TruncatablePrimes37 {
     }
 
     public static List<Integer> findTruncatablePrimes() {
-        int total = 11;
         List<Integer> answer = new ArrayList<>();
-        int segment = 10000;
-        int last = 11;
-        while (answer.size() < total) {
-            int nextIndex = primesList.size();
-            last = primesList.get(nextIndex - 1);
-            primesList = Primes.segmentedSieve(last + segment, primesList);
-            primesSet = new HashSet<>(primesList);
-            for (int i = nextIndex; i < primesList.size(); i++) {
-                if (primesList.get(i) == 3797) System.out.println("got to 3797");
-                if (isTruncatablePrime(primesList.get(i))) {
-                    System.out.println("found " + primesList.get(i));
-                    answer.add(primesList.get(i));
-                }
+        int firstIndex = primesList.indexOf(11);
+        for (int i = firstIndex; i < primesList.size(); i++) {
+            if (isTruncatablePrime(primesList.get(i))) {
+                answer.add(primesList.get(i));
             }
         }
+
         return answer;
     }
 
     public static void main(String[] args) {
-
-        System.out.println(findTruncatablePrimes());
+        System.out.println(isTruncatablePrime(3797));
+        System.out.println(findTruncatablePrimes().stream().mapToInt(x -> x).sum());
     }
 }
