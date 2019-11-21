@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import static com.k00ntz.euler.util.ListUtil.groupBy;
+import static com.k00ntz.euler.util.ListUtil.last;
 import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 
@@ -103,10 +104,13 @@ public class Primes {
     public static List<Integer> segmentedSieve(long n, List<Integer> prime) {
         // Compute all primes smaller than or equal
         // to square root of n using simple sieve
-        int limit = (int) (floor(sqrt(n)) + 1);
-        if (prime == null) {
+        int limit = 100;
+        if (last(prime) == null) {
+            limit = (int) (floor(sqrt(n)) + 1);
             prime = new ArrayList<>();
             simpleSieve(limit, prime);
+        } else {
+            limit = (int) floor(sqrt(last(prime))) + 1;
         }
 
         // Divide the range [0..n-1] in different segments

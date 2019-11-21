@@ -11,6 +11,11 @@ public class ListUtil {
         else return list.get(list.size() - 1);
     }
 
+    public static <T extends Object & Comparable<? super T>> T maxOrNull(Collection<? extends T> ts) {
+        if (ts == null) return null;
+        else return Collections.max(ts);
+    }
+
     public static <K, T> Map<K, List<T>> groupBy(List<T> list, Function<T, K> keyFunction) {
         return list.stream().collect(Collectors.groupingBy(keyFunction));
     }

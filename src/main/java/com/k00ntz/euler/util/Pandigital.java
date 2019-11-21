@@ -31,16 +31,16 @@ public class Pandigital {
     }
 
     public static List<Integer> generateXDigitNumbers(int x, Set<Integer> digitSet) {
-        List<Integer> ints = new ArrayList<>();
+        List<Integer> ints = Collections.synchronizedList(new ArrayList<>());
         if (x == 1)
             return new ArrayList<>(digitSet);
-        for (Integer digit : digitSet) {
-            ints.addAll(prepend(digit, generateXDigitNumbers(x - 1, new HashSet<Integer>(digitSet) {
-                {
-                    this.remove(digit);
-                }
-            })));
-        }
+        digitSet.parallelStream().forEach(digit ->
+                ints.addAll(prepend(digit, generateXDigitNumbers(x - 1, new HashSet<Integer>(digitSet) {
+                    {
+                        this.remove(digit);
+                    }
+                })))
+        );
         return ints;
     }
 
