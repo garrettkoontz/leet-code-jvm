@@ -42,7 +42,9 @@ public class RunAllEuler {
                 "com.k00ntz.euler.DigitCancellingFractions33",
                 "com.k00ntz.euler.DigitFactorials34",
                 "com.k00ntz.euler.CircularPrimes35",
-                "com.k00ntz.euler.DoubleBasePalindromes36"
+                "com.k00ntz.euler.DoubleBasePalindromes36",
+                "com.k00ntz.euler.TruncatablePrimes37",
+                "com.k00ntz.euler.PandigitalMultiples38"
         );
         List<String> runTimes = new ArrayList<>();
         for (String s : classes) {
