@@ -14,7 +14,7 @@ import static java.lang.Math.sqrt;
  * <p>
  * For which value of p ≤ 1000, is the number of solutions maximised?
  */
-public class InnerRightTriangles39 {
+public class IntegerRightTriangles39 {
 
     public static boolean hasIntegerThird(int a, int b) {
         double c = sqrt(a * a + b * b);

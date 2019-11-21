@@ -44,7 +44,10 @@ public class RunAllEuler {
                 "com.k00ntz.euler.CircularPrimes35",
                 "com.k00ntz.euler.DoubleBasePalindromes36",
                 "com.k00ntz.euler.TruncatablePrimes37",
-                "com.k00ntz.euler.PandigitalMultiples38"
+                "com.k00ntz.euler.PandigitalMultiples38",
+                "com.k00ntz.euler.IntegerRightTriangles39",
+                "com.k00ntz.euler.ChampernownesConstant40",
+                "com.k00ntz.euler.PandigitalPrime41"
         );
         List<String> runTimes = new ArrayList<>();
         for (String s : classes) {

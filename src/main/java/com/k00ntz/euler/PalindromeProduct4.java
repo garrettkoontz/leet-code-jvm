@@ -7,10 +7,10 @@ import java.util.stream.IntStream;
  * <p>
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
-public class PalindromeProduct {
+public class PalindromeProduct4 {
     public static void main(String[] args) {
-        System.out.println(new PalindromeProduct().findMax(IntStream.rangeClosed(10, 99)));
-        System.out.println(new PalindromeProduct().findMax(IntStream.rangeClosed(100, 999)));
+        System.out.println(new PalindromeProduct4().findMax(IntStream.rangeClosed(10, 99)));
+        System.out.println(new PalindromeProduct4().findMax(IntStream.rangeClosed(100, 999)));
     }
 
     private int findMax(IntStream range) {
