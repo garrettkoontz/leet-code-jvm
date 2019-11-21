@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 
 public class Pandigital {
 
-    public static Set<Integer> allowedInts = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    public static Set<Integer> positiveInts = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    public static Set<Integer> allInts = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
 
     public static boolean isPandigital(int... ints) {
         return isPandigital(Arrays.stream(ints).boxed().collect(Collectors.toList()));
@@ -21,7 +22,7 @@ public class Pandigital {
         Set<Integer> set = new HashSet<>();
         for (int i : ints) {
             List<Integer> digits = NumberUtil.getDigits(i);
-            if (allowedInts.containsAll(digits)) {
+            if (positiveInts.containsAll(digits)) {
                 list.addAll(digits);
                 set.addAll(digits);
                 if (list.size() != set.size()) return false;

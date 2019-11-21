@@ -44,7 +44,7 @@ public class PandigitalProducts32 {
 
     public static void main(String[] args) {
         System.out.println(isPandigital(39, 186, 7254));
-        System.out.println(ListUtil.sum(findPandigitalProducts(allowedInts)));
+        System.out.println(ListUtil.sum(findPandigitalProducts(positiveInts)));
     }
 
 }

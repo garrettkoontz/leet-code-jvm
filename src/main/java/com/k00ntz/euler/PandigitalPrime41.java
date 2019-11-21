@@ -27,7 +27,7 @@ public class PandigitalPrime41 {
         for (int i = 1; i < 10; i++) {
             primes = Primes.segmentedSieve((int) Math.pow(10, i), primes);
             Set<Integer> primesSet = new HashSet<>(primes);
-            List<Integer> pandigitals = Pandigital.generateXDigitNumbers(i, Pandigital.allowedInts);
+            List<Integer> pandigitals = Pandigital.generateXDigitNumbers(i, Pandigital.positiveInts);
             pandigitals.removeIf(x -> !primesSet.contains(x));
             if (!pandigitals.isEmpty())
                 max = Math.max(max, Collections.max(pandigitals));

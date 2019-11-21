@@ -36,7 +36,7 @@ public class PandigitalMultiples38 {
 
     public static List<Long> generatePossiblePandigitalMultiples() {
         List<Long> panDigitals = new ArrayList<>();
-        Set<Long> panDigitalInts = generateXDigitNumbers(9, allowedInts)
+        Set<Long> panDigitalInts = generateXDigitNumbers(9, positiveInts)
                 .stream().mapToLong(x -> (long) x).boxed().collect(Collectors.toSet());
         for (int i = 1; i < 10; i++) {
             long test = concatenatedMultiple(i, 5);
@@ -44,13 +44,13 @@ public class PandigitalMultiples38 {
                 panDigitals.add(test);
             }
         }
-        for (Integer pd : generateXDigitNumbers(3, allowedInts)) {
+        for (Integer pd : generateXDigitNumbers(3, positiveInts)) {
             long test = concatenatedMultiple(pd, 3);
             if (panDigitalInts.contains(test)) {
                 panDigitals.add(test);
             }
         }
-        for (Integer pd : generateXDigitNumbers(4, allowedInts)) {
+        for (Integer pd : generateXDigitNumbers(4, positiveInts)) {
             long test = concatenatedMultiple(pd, 2);
             if (panDigitalInts.contains(test)) {
                 panDigitals.add(test);
