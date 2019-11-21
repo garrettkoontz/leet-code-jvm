@@ -20,7 +20,7 @@ public class NumberUtil {
         }
     }
 
-    public static List<Integer> getDigits(int i) {
+    public static List<Integer> getDigits(long i) {
         List<Integer> digits = new ArrayList<>();
         for (char c : ("" + i).toCharArray()) {
             digits.add(c - '0');
