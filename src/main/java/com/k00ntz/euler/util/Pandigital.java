@@ -7,6 +7,7 @@ public class Pandigital {
 
     public static Set<Integer> positiveInts = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     public static Set<Integer> allInts = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+    public static Set<Long> allLongs = allInts.stream().mapToLong(x -> (long) x).boxed().collect(Collectors.toSet());
 
     public static boolean isPandigital(int... ints) {
         return isPandigital(Arrays.stream(ints).boxed().collect(Collectors.toList()));
@@ -45,10 +46,32 @@ public class Pandigital {
         return ints;
     }
 
+    public static List<Long> generateXDigitLongs(long x, Set<Long> digitSet) {
+        List<Long> longs = Collections.synchronizedList(new ArrayList<>());
+        if (x == 1)
+            return digitSet.stream().mapToLong(y -> y).boxed().collect(Collectors.toList());
+        digitSet.parallelStream().forEach(digit ->
+                longs.addAll(prepend((long) digit, generateXDigitLongs(x - 1L, new HashSet<Long>(digitSet) {
+                    {
+                        this.remove(digit);
+                    }
+                })))
+        );
+        return longs;
+    }
+
     public static List<Integer> prepend(int i, List<Integer> ints) {
         List<Integer> list = new ArrayList<>();
-        for (int j = 0; j < ints.size(); j++) {
-            list.add(Integer.parseInt("" + i + ints.get(j)));
+        for (int anInt : ints) {
+            list.add(Integer.parseInt("" + i + anInt));
+        }
+        return list;
+    }
+
+    public static List<Long> prepend(long i, List<Long> ints) {
+        List<Long> list = new ArrayList<>();
+        for (long anInt : ints) {
+            list.add(Long.parseLong("" + i + anInt));
         }
         return list;
     }

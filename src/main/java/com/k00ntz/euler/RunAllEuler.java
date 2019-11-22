@@ -1,9 +1,10 @@
 package com.k00ntz.euler;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RunAllEuler {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
@@ -47,16 +48,18 @@ public class RunAllEuler {
                 "com.k00ntz.euler.PandigitalMultiples38",
                 "com.k00ntz.euler.IntegerRightTriangles39",
                 "com.k00ntz.euler.ChampernownesConstant40",
-                "com.k00ntz.euler.PandigitalPrime41"
+                "com.k00ntz.euler.PandigitalPrime41",
+                "com.k00ntz.euler.CodedTriangleNumbers42"
         );
-        List<String> runTimes = new ArrayList<>();
+        Map<String, Long> runTimes = new LinkedHashMap<>();
         for (String s : classes) {
             Class<?> claz = Class.forName(s);
             long startTime = System.currentTimeMillis();
             claz.getMethod("main", String[].class).invoke(null, (Object) null);
-            runTimes.add("Ran " + s + " in " + (System.currentTimeMillis() - startTime) + "ms");
+            runTimes.put(s, (System.currentTimeMillis() - startTime));
         }
-        runTimes.forEach(System.out::println);
+        runTimes.forEach((key, value) -> System.out.println("Ran " + key + " in " + value + "ms"));
+        System.out.println("All runs in " + runTimes.values().stream().mapToLong(l -> l).sum() / 1000.0 + "s");
     }
 
 }

@@ -13,7 +13,7 @@ public class SummationOfPrimes10 {
 
     public static long sumOfPrimesBelow(int i){
         List<Integer> primes = Primes.segmentedSieve(i);
-        return primes.stream().mapToLong(x -> (long)x).reduce(Long::sum).orElse(-1L);
+        return primes.parallelStream().mapToLong(x -> (long) x).reduce(Long::sum).orElse(-1L);
     }
 
     public static void main(String[] args) {

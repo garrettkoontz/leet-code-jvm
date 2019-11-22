@@ -2,6 +2,7 @@ package com.k00ntz.euler.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NumberUtil {
 
@@ -26,6 +27,10 @@ public class NumberUtil {
             digits.add(c - '0');
         }
         return digits;
+    }
+
+    public static long getNumber(List<Integer> digits) {
+        return Long.parseLong(digits.stream().map(x -> "" + x).collect(Collectors.joining()));
     }
 
     public static Pair<Integer, Integer> reduce(Pair<Integer, Integer> pair) {
