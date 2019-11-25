@@ -24,39 +24,46 @@ import static java.lang.Math.floor;
 public class TriangularPentagonalHexagonal45 {
 
 
-    public static long triangle(int n) {
+    public static long triangle(long n) {
         return n * (n + 1) / 2;
     }
 
-    public static long pentagonal(int n) {
+    public static long pentagonal(long n) {
         return n * (3 * n - 1) / 2;
     }
 
-    public static long hexagonal(int n) {
+    public static long hexagonal(long n) {
         return n * (2 * n - 1);
     }
 
-    public static int isTriangle(int t) {
+    public static int isTriangle(long t) {
         double sqrt = Math.sqrt(t * 2);
         if (t * 2.0 == floor(sqrt) * ceil(sqrt))
             return (int) floor(sqrt);
         else return -1;
     }
 
-    public static int isHexagonal(int h) {
-        HashSet<Integer> divisors = new HashSet<>(Primes.divisors(h));
-        return divisors.stream().mapToInt(x -> x).findFirst(d -> divisors.contains((2 * d) - 1)).orElse(-1);
+    public static long isHexagonal(long h) {
+        HashSet<Long> divisors = new HashSet<>(Primes.properDivisors(h));
+        divisors.remove(1L);
+        for (long d :
+                divisors) {
+            if (divisors.contains((2 * d) - 1) && h == hexagonal(d)) return d;
+        }
+        return -1;
     }
 
     public static long findIntersectionsAfter(int triN, int pentN, int hexN) {
+        long pent = pentagonal(++pentN);
+        while (isTriangle(pent) == -1 || isHexagonal(pent) == -1) {
 
+            pent = pentagonal(++pentN);
+        }
+        return pent;
     }
 
     public static void main(String[] args) {
-        System.out.println(isTriangle(3));
-        System.out.println(isTriangle(4));
-        System.out.println(isTriangle(5));
-        System.out.println(isTriangle(6));
+        System.out.println(findIntersectionsAfter(286, 164, 143));
         System.out.println(findIntersectionsAfter(286, 165, 143));
     }
 }

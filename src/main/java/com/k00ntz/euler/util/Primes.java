@@ -22,9 +22,27 @@ public class Primes {
         return answer;
     }
 
+    public static Set<Long> divisors(long l) {
+        int sqrt = (int) Math.ceil(Math.sqrt(l));
+        Set<Long> answer = new HashSet<>();
+        for (long i = 1; i <= sqrt; i++) {
+            if (l % i == 0) {
+                answer.add(i);
+                answer.add(l / i);
+            }
+        }
+        return answer;
+    }
+
     public static Set<Integer> properDivisors(int i) {
         Set<Integer> divisors = divisors(i);
         divisors.remove(i);
+        return divisors;
+    }
+
+    public static Set<Long> properDivisors(long l) {
+        Set<Long> divisors = divisors(l);
+        divisors.remove(l);
         return divisors;
     }
 
