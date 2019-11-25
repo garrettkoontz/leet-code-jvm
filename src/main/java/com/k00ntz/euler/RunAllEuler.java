@@ -52,7 +52,8 @@ public class RunAllEuler {
                 "com.k00ntz.euler.CodedTriangleNumbers42",
                 "com.k00ntz.euler.SubStringDivisibility43",
                 "com.k00ntz.euler.PentagonalNumbers44",
-                "com.k00ntz.euler.TriangularPentagonalHexagonal45"
+                "com.k00ntz.euler.TriangularPentagonalHexagonal45",
+                "com.k00ntz.euler.GoldbachsOtherConjecture46"
         );
         Map<String, Long> runTimes = new LinkedHashMap<>();
         for (String s : classes) {
