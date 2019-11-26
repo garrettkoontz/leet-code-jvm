@@ -16,6 +16,33 @@ public class ListUtil {
         else return Collections.max(ts);
     }
 
+    public static int sum(List<Integer> list) {
+        return list.stream().reduce(Integer::sum).orElse(Integer.MIN_VALUE);
+    }
+
+    /**
+     * assumes list is sorted ascending
+     *
+     * @param list
+     * @param i
+     * @return
+     */
+    public static int nextIndexGreaterThan(List<Integer> list, int i) {
+        for (int j = 0; j < list.size(); j++) {
+            if (list.get(j) > i) return j;
+        }
+        return list.size();
+    }
+
+    public static int maxSumLessThan(List<Integer> list, int max) {
+        int maxSum = 0;
+        for (int j = 0; j < list.size(); j++) {
+            maxSum += list.get(j);
+            if (maxSum > max) return j;
+        }
+        return list.size();
+    }
+
     public static <K, T> Map<K, List<T>> groupBy(List<T> list, Function<T, K> keyFunction) {
         return list.stream().collect(Collectors.groupingBy(keyFunction));
     }
