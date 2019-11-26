@@ -30,23 +30,18 @@ public class PrimePermutations49 {
     private static Set<List<Integer>> fourDigitSequence() {
         List<Integer> primes = Primes.segmentedSieve(10000);
         primes.removeIf(x -> x < 1000);
-        List<List<Integer>> resultList = new ArrayList<>();
-        for (int p : primes) {
-            List<Integer> primePermutiations = primes.stream().filter(x -> isPermutation(p, x)).collect(Collectors.toList());
-            if (3L <= primePermutiations.size()) {
-                resultList.add(primePermutiations);
-            }
-        }
         Set<List<Integer>> finalResult = new HashSet<>();
-        for (List<Integer> perm :
-                resultList) {
-            Collections.sort(perm);
-            for (int i = 0; i < perm.size(); i++) {
-                for (int j = i + 1; j < perm.size(); j++) {
-                    if (perm.get(i) == 1487)
-                        System.out.println("found it");
-                    if (perm.indexOf(perm.get(j) + perm.get(j) - perm.get(i)) != -1)
-                        finalResult.add(Arrays.asList(perm.get(i), perm.get(j), perm.get(j) + perm.get(j) - perm.get(i)));
+        for (int p : primes) {
+            List<Integer> primePermutations = primes.stream().filter(x -> isPermutation(p, x)).collect(Collectors.toList());
+            if (3L <= primePermutations.size()) {
+                Collections.sort(primePermutations);
+                for (int i = 0; i < primePermutations.size(); i++) {
+                    for (int j = i + 1; j < primePermutations.size(); j++) {
+                        if (primePermutations.indexOf(primePermutations.get(j) + primePermutations.get(j)
+                                - primePermutations.get(i)) != -1)
+                            finalResult.add(Arrays.asList(primePermutations.get(i), primePermutations.get(j),
+                                    primePermutations.get(j) + primePermutations.get(j) - primePermutations.get(i)));
+                    }
                 }
             }
         }
@@ -54,6 +49,7 @@ public class PrimePermutations49 {
     }
 
     public static void main(String[] args) {
-        System.out.println(fourDigitSequence());
+        System.out.println(fourDigitSequence().stream().map(x -> x.stream().map(y -> "" + y).collect(Collectors.joining()))
+                .collect(Collectors.toList()));
     }
 }
