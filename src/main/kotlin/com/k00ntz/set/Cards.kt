@@ -14,12 +14,12 @@ enum class Shape(val str: String) {
     }
 
     fun makeShapeString(color: Color, shade: Shade, number: Number): String =
-        makeColor(color, shade).repeatOnLine(number, 9)
+        makeColor(color, shade).repeatOnLine(number)
 }
 
-fun String.repeatOnLine(number: Number, padTo: Int): String {
+fun String.repeatOnLine(number: Number): String {
     val str = this.split("\n")
-    return when(number) {
+    return when (number) {
         Number.ONE -> {
             "   ${str[0]}   \n   ${str[1]}   \n   ${str[2]}   \n"
         }
@@ -36,7 +36,7 @@ fun List<String>.combineOnLine(): String {
     val splits = this.map {
         it.split("\n")
     }
-    return splits.first().foldIndexed(""){i, acc, _ ->
+    return splits.first().foldIndexed("") { i, acc, _ ->
         acc + splits.joinToString(separator = " ") { it[i] } + "\n"
     }
 }
@@ -93,8 +93,10 @@ class Card(
 ) {
 
 
-    fun toPrintString(): String =
-        shape.makeShapeString(color, shade, number)
+    fun toPrintString(label: Char? = null): String =
+        if (label == null)
+            shape.makeShapeString(color, shade, number)
+        else listOf("$label\n \n ", shape.makeShapeString(color, shade, number)).combineOnLine()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

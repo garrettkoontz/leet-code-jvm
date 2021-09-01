@@ -1,18 +1,32 @@
 package com.k00ntz.set
 
-import java.util.ArrayDeque
+import java.time.Duration
+import java.time.temporal.ChronoUnit
+import java.util.*
 
 typealias SetMatch = Triple<Card, Card, Card>
+
+fun SetMatch.isASet(): Boolean {
+    val (a, b, c) = this
+    val shapes = setOf(a.shape, b.shape, c.shape)
+    val colors = setOf(a.color, b.color, c.color)
+    val numbers = setOf(a.number, b.number, c.number)
+    val shades = setOf(a.shade, b.shade, c.shade)
+    return (shapes.size == 1 || shapes.size == 3) &&
+            (colors.size == 1 || colors.size == 3) &&
+            (numbers.size == 1 || numbers.size == 3) &&
+            (shades.size == 1 || shades.size == 3)
+}
 
 class Board(private val state: Array<Array<Card>>) {
     constructor(deck: ArrayDeque<Card>, long: Int = 4, wide: Int = 3) :
             this((1..long).map { deck.draw(wide).toTypedArray() }.toTypedArray())
 
     fun print(): String {
-//    var l = 'A'
+    var l = 'A'
         return state.joinToString(separator = "\n") {
-            it.map {
-                it.toPrintString().padEnd(30)//.also { l++ }
+            it.map { card ->
+                card.toPrintString(l++).padEnd(30)
             }.combineOnLine()
         }
     }
@@ -39,24 +53,12 @@ class Board(private val state: Array<Array<Card>>) {
     }
 
     fun getCards(l: Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>>) =
-        l.let { (a,b,c) ->
+        l.let { (a, b, c) ->
             val (a1, a2) = a
             val (b1, b2) = b
             val (c1, c2) = c
-        Triple(state[a1][a2],state[b1][b2],state[c1][c2])}
-
-    fun SetMatch.isASet(): Boolean {
-        val (a, b, c) = this
-        val shapes = setOf(a.shape, b.shape, c.shape)
-        val colors = setOf(a.color, b.color, c.color)
-        val numbers = setOf(a.number, b.number, c.number)
-        val shades = setOf(a.shade, b.shade, c.shade)
-        return (shapes.size == 1 || shapes.size == 3) &&
-                (colors.size == 1 || colors.size == 3) &&
-                (numbers.size == 1 || numbers.size == 3) &&
-                (shades.size == 1 || shades.size == 3)
-    }
-
+            Triple(state[a1][a2], state[b1][b2], state[c1][c2])
+        }
 
     private fun findThird(card1: Card, card2: Card): Card {
         val color = if (card1.color == card2.color) card1.color else colors.not(card1.color, card2.color)
@@ -71,35 +73,48 @@ class Board(private val state: Array<Array<Card>>) {
             replace(idxs, deck)
         }
     }
+
+    fun redraw(deck: Deck) {
+        val cardPos = Triple(0 to 0, 1 to 1, 2 to 2)
+        val cards = getCards(cardPos)
+        replace(cardPos, deck)
+        deck.addAll(cards.toList())
+    }
 }
 
 
 class Game(
     private val deck: Deck,
     private val board: Board = Board(deck),
-    val sets: MutableMap<String, MutableSet<SetMatch>> = mutableMapOf()
+    val sets: MutableMap<String, MutableSet<Pair<Duration, SetMatch>>> = mutableMapOf()
 ) {
     fun playGame() {
-        while (deck.size > 0) {
+        var redraws = 0
+        while (deck.size > 0 && redraws < 3) {
             println(board.print())
             if (board.containsSet()) {
+                val startTime = System.currentTimeMillis()
                 val r = readLine()
+                val answerTime = System.currentTimeMillis()
                 val line = parseLine(r)
                 if (line != null) {
                     val (name, idxs) = line
                     val potentialSetMatch = board.getCards(idxs)
                     if (board.makeSet(idxs)) {
-                        sets.getOrPut(name) { mutableSetOf() }.add(potentialSetMatch)
+                        sets.getOrPut(name) { mutableSetOf() }
+                            .add(Duration.of(answerTime - startTime, ChronoUnit.MILLIS) to potentialSetMatch)
 
                     }
                 }
             } else {
-                throw RuntimeException("Can't find a set!")
+                board.redraw(deck)
+                redraws++
             }
         }
+        println(sets)
     }
 
-    private fun parseLine(r: String?): Pair<String, Triple<Pair<Int, Int>,Pair<Int, Int>,Pair<Int, Int>>>? =
+    private fun parseLine(r: String?): Pair<String, Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>>>? =
         if (r == null) null
         else {
             val pair = r.split(" ")
