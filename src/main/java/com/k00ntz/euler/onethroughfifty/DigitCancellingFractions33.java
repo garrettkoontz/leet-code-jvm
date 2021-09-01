@@ -6,7 +6,7 @@ import com.k00ntz.euler.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.k00ntz.euler.util.NumberUtil.reduce;
+import static com.k00ntz.euler.util.NumberUtil.fractionReduction;
 
 /**
  * The fraction 49/98 is a curious fraction, as an inexperienced mathematician in attempting to simplify it may
@@ -27,7 +27,7 @@ public class DigitCancellingFractions33 {
         numDigits.removeAll(NumberUtil.getDigits(denom));
         denomDigits.removeAll(NumberUtil.getDigits(num));
         if (numDigits.size() != 1 || denomDigits.size() != 1) return false;
-        return new Double((double) num / (double) denom)
+        return Double.valueOf((double) num / (double) denom)
                 .equals((double) numDigits.get(0) / (double) denomDigits.get(0));
     }
 
@@ -45,7 +45,7 @@ public class DigitCancellingFractions33 {
     public static Pair<Integer, Integer> reduceProduct(List<Pair<Integer, Integer>> pairs) {
         Integer num = pairs.stream().mapToInt(x -> x._1).reduce((a, b) -> a * b).orElse(0);
         Integer denom = pairs.stream().mapToInt(x -> x._2).reduce((a, b) -> a * b).orElse(0);
-        return reduce(new Pair<>(num, denom));
+        return fractionReduction(new Pair<>(num, denom));
     }
 
     public static void main(String[] args) {

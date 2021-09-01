@@ -9,10 +9,14 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven(url = "https://www.jitpack.io") {
+        name = "jitpack"
+    }
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("com.github.jkcclemens:khttp:-SNAPSHOT")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
 }
 

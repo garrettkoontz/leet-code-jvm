@@ -13,7 +13,7 @@ fun countAndSay(n: Int): String {
         var count = 0
         val newStr = StringBuilder("")
         var lastVal: Char? = null
-        for (c in (0 .. str.length)) {
+        for (c in (0..str.length)) {
             if (c == str.length) {
                 newStr.append("$count$lastVal")
             } else {
@@ -168,3 +168,84 @@ fun romanToInt(s: String): Int {
     }
     return result
 }
+
+fun generate(numRows: Int): List<List<Int>> {
+    return if (numRows == 0) emptyList()
+    else (0 until numRows).fold(mutableListOf(listOf(1))) { acc, idx ->
+        acc.add(nextRow(acc[idx]))
+        acc
+    }
+}
+
+fun nextRow(previousRow: List<Int>): List<Int> =
+    listOf(1).plus(
+        previousRow.windowed(2, 1).map { it[0] + it[1] }
+            .plus(listOf(1)))
+
+
+fun convertToTitle(n: Int): String {
+    var a = n
+    var out = ""
+    while (a > 26) {
+        out += (('A' - 1) + a / 26)
+        a %= 26
+    }
+    out += (('A' - 1) + a)
+    return out
+}
+
+
+/*
+fun findMedianSortedArrays(nums1: IntArray, nums2: IntArray): Double {
+    val totalSize = nums1.size + nums2.size
+    var blockSize = minOf(nums1.size, nums2.size) / 2
+    val avg = totalSize % 2 == 0
+    var iIdx = nums1.size / 2
+    var jIdx = nums2.size / 2
+    var i = nums1[iIdx]
+    var j = nums2[jIdx]
+    if (i == j) return i.toDouble()
+    var k = 0
+    while (k < nums1.size) {
+        k++
+        if (i < j) {
+            blockSize /= 2
+            iIdx += blockSize
+            jIdx -= blockSize
+            i = nums1[iIdx]
+            j = nums2[jIdx]
+            iMinor = nums1[iIdx - 1]
+            jMinor = nums2[jIdx - 1]
+        } else if (i > j) {
+            blockSize /= 2
+            iIdx -= blockSize
+            jIdx += blockSize
+            i = nums1[iIdx]
+            j = nums2[jIdx]
+            iMinor = nums1[iIdx - 1]
+            jMinor = nums2[jIdx - 1]
+        } else {
+            return if (avg) (i + j) / 2.0 else if (nums1.size < nums2.size) return i.toDouble() else j.toDouble()
+        }
+
+    }
+    return Double.MAX_VALUE
+
+}
+
+fun mergeKLists(lists: Array<ListNode?>): ListNode? {
+    val ln = ListNode(-1)
+    var n = ln
+    while(lists.any {it != null}){
+
+        val min = lists.filterNotNull().withIndex().reduce{
+                acc: IndexedValue<ListNode>, l : IndexedValue<ListNode> ->
+            if(l.value!!.`val` < acc.value!!.`val`) l else acc
+        }
+        n.next = min.value
+        n = n.next
+        lists[min.index] = lists[min.index]?.next
+    }
+    return ln.next
+}
+*/

@@ -63,7 +63,7 @@ public class RunAllEuler {
         for (String s : classes) {
             Class<?> claz = Class.forName(s);
             long startTime = System.currentTimeMillis();
-            claz.getMethod("main", String[].class).invoke(null, (Object) null);
+            claz.getMethod("com.k00ntz.set.main", String[].class).invoke(null, (Object) null);
             runTimes.put(s, (System.currentTimeMillis() - startTime));
         }
         runTimes.forEach((key, value) -> System.out.println("Ran " + key + " in " + value + "ms"));

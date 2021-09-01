@@ -100,4 +100,24 @@ internal class SolutionKtTest {
             intArray4.sliceArray(0..1).toTypedArray()
         )
     }
+
+    @Test
+    fun excelColumnTest(){
+        assertEquals("A", convertToTitle(1))
+        assertEquals("AB", convertToTitle(28))
+        assertEquals("ZY", convertToTitle(701))
+        assertEquals("ZZ", convertToTitle(702))
+        assertEquals("AAA", convertToTitle(703))
+    }
+
+    @Test
+    fun medianSortedArray(){
+        assertEquals(2, findMedianSortedArrays(intArrayOf(1,3), intArrayOf(2)))
+    }
+
+    @Test
+    fun mergeKLists() {
+        mergeKLists([[1,4,5],[1,3,4],[2,6]])
+    }
+
 }

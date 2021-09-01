@@ -33,7 +33,7 @@ public class NumberUtil {
         return Long.parseLong(digits.stream().map(x -> "" + x).collect(Collectors.joining()));
     }
 
-    public static Pair<Integer, Integer> reduce(Pair<Integer, Integer> pair) {
+    public static Pair<Integer, Integer> fractionReduction(Pair<Integer, Integer> pair) {
         int gcd = findGCD(pair._1, pair._2);
         return new Pair<>(pair._1 / gcd, pair._2 / gcd);
     }
@@ -54,5 +54,13 @@ public class NumberUtil {
             if (s.charAt(i) != s.charAt(s.length() - i - 1)) return false;
         }
         return true;
+    }
+
+    public static List<Integer> range(int from, int toExclusive){
+        List<Integer> rangeList = new ArrayList<>();
+        for (int i = from; i < toExclusive; i++) {
+            rangeList.add(i);
+        }
+        return rangeList;
     }
 }
